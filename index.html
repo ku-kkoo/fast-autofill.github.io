@@ -528,13 +528,14 @@ background: #0056b3;
 			<label>Payment method</label>
                      <select name="paymentMethod" id="paymentMethod">
                         <option value="QRCD">HIM/ UPI/ USSD</option>
-                        <option value="UPIID">VPA / UPI ID</option> 
-                        <option hidden value="IRCWA">IRCTC e-Wallet</option>                   
+                        <option hidden value="UPIID">VPA / UPI ID</option> 
+                        <option value="IRCWA">IRCTC e-Wallet</option>                   
                     </select>
 
 	     <input type="text" id="vpa" name="vpa" size="30" placeholder="e.g. 123456@paytm"/>
 
-             <a class="bookmarklet" id="captchaPaymentSelectionBookmarklet">Captcha & Payment Selection - Drag & Drop to Bookmark Bar</a>
+             <a class="bookmarklet" id="captchaQRPaymentSelectionBookmarklet">Captcha & BHIM/ UPI/ USSD Payment Selection - Drag & Drop to Bookmark Bar</a>
+             <a class="bookmarklet" id="captchaIrctcPaymentSelectionBookmarklet">Captcha & IRCTC e-Wallet Payment Selection - Drag & Drop to Bookmark Bar</a>
 
     </div>
 </div>
@@ -767,7 +768,7 @@ background: #0056b3;
 `;
 
 
-       } else if (type === 'captchaPaymentSelection') {
+       } else if (type === 'captchaQRPaymentSelection') {
             script = `
 						    let captchaImg = document.querySelector('.captcha-img');
     						if (captchaImg) {
@@ -799,6 +800,38 @@ background: #0056b3;
 	
 `;
 
+      } else if (type === 'captchaIrctcPaymentSelection') {
+            script = `
+			try {
+    var elements = document.querySelectorAll('.bank-type');
+    var found = false;
+    elements.forEach(function(el){
+      if (el.innerText.includes("IRCTC eWallet")) {
+        el.click();
+        console.log("IRCTC eWallet clicked.");
+        found = true;
+      }
+    });
+
+    let captchaImg = document.querySelector('.captcha-img');
+    if (captchaImg) {
+      captchaImg.style.width = "350px";
+      captchaImg.style.height = "auto";
+      captchaImg.style.border = "2px solid red";
+      captchaImg.style.transition = "0.3s ease";
+    }
+
+    let psgcaptcha = document.querySelector("[id='captcha']");
+    if (psgcaptcha) {
+      psgcaptcha.focus();
+    }
+
+  } catch(e) {
+    console.error("Error:", e);
+  }
+	
+`;
+		
         } else if (type === 'payment') {
             script = `document.querySelector('[name="cardNumber"]').value = '${document.getElementById('cardNumber').value}';
                       document.querySelector('[name="expiry"]').value = '${document.getElementById('expiry').value}';
@@ -843,7 +876,8 @@ background: #0056b3;
             updateBookmarklet("login");
             updateBookmarklet("journey");
             updateBookmarklet("passenger");
-            updateBookmarklet("captchaPaymentSelection");
+            updateBookmarklet("captchaQRPaymentSelection");
+            updateBookmarklet("captchaIrctcPaymentSelection");
             updateBookmarklet("payment");
         });
     });
@@ -852,10 +886,11 @@ background: #0056b3;
     updateBookmarklet("login");
     updateBookmarklet("journey");
     updateBookmarklet("passenger");
-    updateBookmarklet("captchaPaymentSelection");
+    updateBookmarklet("captchaQRPaymentSelection");
+    updateBookmarklet("captchaIrctcPaymentSelection");
     updateBookmarklet("payment");
 	
-		document.getElementById("passengerBookmarklet").click();
+	document.getElementById("passengerBookmarklet").click();
         document.getElementById("journeyBookmarklet").click();
         document.getElementById("loginBookmarklet").click();
 	
