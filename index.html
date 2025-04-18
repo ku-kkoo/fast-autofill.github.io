@@ -521,15 +521,34 @@ background: #0056b3;
 
          </div>
 
+
+  <script>
+    (function () {
+      const key = "autoSaved_paymentMethod";
+      const select = document.getElementById("paymentMethod");
+      if (!select) return;
+      // Restore value
+      const saved = localStorage.getItem(key);
+      if (saved && Array.from(select.options).some(opt => opt.value === saved)) {
+        select.value = saved;
+      }
+      // Auto-save on change
+      select.addEventListener("change", function () {
+        localStorage.setItem(key, select.value);
+      });
+    })();	
+  </script>	
+
+	
 <div class = "field-group" >
      <div class="section">
         <h1><span>Passenger Captcha & Payment Type Selection</span></h1>
 
 			<label>Payment method</label>
                      <select name="paymentMethod" id="paymentMethod">
-                        <option value="QRCD">HIM/ UPI/ USSD</option>
+                        <option value="2">HIM/ UPI/ USSD</option>
                         <option hidden value="UPIID">VPA / UPI ID</option> 
-                        <option value="IRCWA">IRCTC e-Wallet</option>                   
+                        <option value="3">IRCTC e-Wallet</option>                   
                     </select>
 
 	     <input hidden type="text" id="vpa" name="vpa" size="30" placeholder="e.g. 123456@paytm"/>
@@ -566,7 +585,7 @@ background: #0056b3;
 </div>
 
 
-
+	
 <script>
     function updateBookmarklet(type) {
         let script = "";
@@ -748,7 +767,7 @@ background: #0056b3;
             confirmBerth.removeAttribute("disabled");
         }
 
-        let paymentOption = document.querySelector('input[type="radio"][name="paymentType"][value="2"]');
+        let paymentOption = document.querySelector('input[type="radio"][name="paymentType"][value= "${document.getElementById('paymentMethod').value}"]');
         if (paymentOption) {
             paymentOption.click();
             paymentOption.dispatchEvent(new Event('change', { bubbles: true }));
@@ -1015,11 +1034,12 @@ background: #0056b3;
     // 🔹 LocalStorage Clear karna
     document.getElementById("save-btn").addEventListener("click", function () {
  {
-		document.getElementById("passengerBookmarklet").click();
+	document.getElementById("passengerBookmarklet").click();
         document.getElementById("journeyBookmarklet").click();
         document.getElementById("loginBookmarklet").click();
-		
-		    alert(`Data Saved Successfully...`);
+        document.getElementById("captchaQRPaymentSelection").click();		
+        document.getElementById("captchaIrctcPaymentSelection").click();	
+	 alert(`Data Saved Successfully...`);
 
         }
     });
