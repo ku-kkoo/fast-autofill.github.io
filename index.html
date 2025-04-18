@@ -931,6 +931,7 @@ background: #0056b3;
         jQuota: document.getElementById("jQuota").value || "",
         jClass: document.getElementById("jClass").value || "",
         mobileNumber: document.getElementById("mobileNumber").value || "",
+	paymentMethod: document.getElementById("paymentMethod").value || "",
 
         passengers: []
     };
@@ -1005,6 +1006,7 @@ background: #0056b3;
         setAndTrigger("jQuota", userData.jQuota);
         setAndTrigger("jClass", userData.jClass);
         setAndTrigger("mobileNumber", userData.mobileNumber);
+	setAndTrigger("paymentMethod", userData.paymentMethod);
 
         // ✅ Passenger Details
         userData.passengers.forEach((psg, index) => {
