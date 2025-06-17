@@ -511,13 +511,19 @@ background: #0056b3;
             <input type="text" id="mobileNumber" name="mobileNumber" size="10" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/> 
             &nbsp;&nbsp;&nbsp;&nbsp;            
 
-            <label style="font-size: 12px; color: red; font-weight: bold;">Esse Passenger Page Pe Hi Payment Type Selection Ho Jayega.</label>      
+            <label hidden style="font-size: 12px; color: red; font-weight: bold;">Esse Passenger Page Pe Hi Payment Type Selection Ho Jayega.</label>  
 
+		 	<label>Payment method</label>
+                     <select name="paymentMethod" id="paymentMethod">
+                        <option value="2">HIM/ UPI/ USSD</option>
+                        <option hidden value="UPIID">VPA / UPI ID</option> 
+                        <option value="3">IRCTC e-Wallet</option>                   
+                     </select>
 			<input hidden type="text" id="vpa" name="vpa" size="30" placeholder="e.g. 123456@paytm"/>
 
             <br>
 
-            <a hidden class="bookmarklet" id="passengerBookmarklet" draggable="true">Passenger - Drag & Drop to Bookmark Bar</a>
+            <a class="bookmarklet" id="passengerBookmarklet" draggable="true">Passenger - Drag & Drop to Bookmark Bar</a>
 
          </div>
 
@@ -545,7 +551,7 @@ background: #0056b3;
         <h1><span>Passenger Captcha & Payment Type Selection</span></h1>
 
 			<label>Payment method</label>
-                     <select name="paymentMethod" id="paymentMethod">
+                     <select hidden name="paymentMethod" id="paymentMethod">
                         <option value="2">HIM/ UPI/ USSD</option>
                         <option hidden value="UPIID">VPA / UPI ID</option> 
                         <option value="3">IRCTC e-Wallet</option>                   
@@ -553,8 +559,7 @@ background: #0056b3;
 
 	     <input hidden type="text" id="vpa" name="vpa" size="30" placeholder="e.g. 123456@paytm"/>
 
-	     <a class="bookmarklet" id="passengerBookmarklet" draggable="true">Passenger - Drag & Drop to Bookmark Bar</a>
-             <a class="bookmarklet" id="captchaQRPaymentSelectionBookmarklet">Captcha & BHIM/ UPI/ USSD Payment Selection - Drag & Drop to Bookmark Bar</a>
+	     <a class="bookmarklet" id="captchaQRPaymentSelectionBookmarklet">Captcha & BHIM/ UPI/ USSD Payment Selection - Drag & Drop to Bookmark Bar</a>
              <a class="bookmarklet" id="captchaIrctcPaymentSelectionBookmarklet">Captcha & IRCTC e-Wallet Payment Selection - Drag & Drop to Bookmark Bar</a>
 
     </div>
