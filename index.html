@@ -566,6 +566,37 @@ background: #0056b3;
 </div>
 
 
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const qrBookmarklet = document.getElementById("captchaQRPaymentSelectionBookmarklet");
+    const irctcBookmarklet = document.getElementById("captchaIrctcPaymentSelectionBookmarklet");
+
+    function toggleBookmarklets() {
+        const selectedValue = paymentMethodSelect.value;
+
+        if (selectedValue === "2") {
+            qrBookmarklet.style.display = "inline-block";
+            irctcBookmarklet.style.display = "none";
+        } else if (selectedValue === "3") {
+            qrBookmarklet.style.display = "none";
+            irctcBookmarklet.style.display = "inline-block";
+        } else {
+            qrBookmarklet.style.display = "none";
+            irctcBookmarklet.style.display = "none";
+        }
+    }
+
+    // Initial setup
+    toggleBookmarklets();
+
+    // Run toggle when payment method changes
+    paymentMethodSelect.addEventListener("change", toggleBookmarklets);
+});
+</script>
+
+
+
 <div class = "field-group" >
      <div hidden class="section">
         <h1><span>Payment Details</span></h1>
