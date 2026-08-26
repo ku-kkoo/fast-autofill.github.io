@@ -744,12 +744,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        function selectValue(element, value) {
-            if (element) {
-                element.value = value;
-                element.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-        }
+	function setValue(element, value) {
+    	if (element) {
+        	const s = Object.getOwnPropertyDescriptor(
+            	HTMLInputElement.prototype,
+            	"value"
+        	).set;
+
+        	s.call(element, value);
+
+        	element.dispatchEvent(new Event("input", {bubbles:true}));
+        	element.dispatchEvent(new Event("change", {bubbles:true}));
+        	element.dispatchEvent(new Event("blur", {bubbles:true}));
+    	}
+	}
 
 
         let passengers = [
@@ -768,7 +776,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let addPassengerButton = document.querySelector("button[aria-label='Add Passenger']") || document.querySelector("span.prenext");
 
         for (let i = 0; i < totalPassengers; i++) {
-            let nameField = document.querySelectorAll("[placeholder='Name']")[i];
+            let nameField = document.querySelectorAll("input[placeholder='Full Name as per Govt. ID']")[i];
             let ageField = document.querySelectorAll("[formcontrolname='passengerAge']")[i];
             let genderField = document.querySelectorAll("[formcontrolname='passengerGender']")[i];
             let berthField = document.querySelectorAll("[formcontrolname='passengerBerthChoice']")[i];
